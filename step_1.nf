@@ -1,7 +1,7 @@
-params.text = "Hello Bicrolab!"
+params.text = "Hello bicrolab"
 text_channel = Channel.of(params.text)
 
-process PRINT_TEXT {
+process REVERSE_TEXT {
     input:
         val x
     
@@ -10,11 +10,12 @@ process PRINT_TEXT {
     
     script:
         """
-        echo ${x}
+        echo ${x} | rev
         """
 }
 
 workflow {
-    results = PRINT_TEXT(text_channel)
+    text_channel.view()
+    results = REVERSE_TEXT(text_channel)
     results.view()
 }
